@@ -6,7 +6,7 @@
 /*   By: jsilva-m <jsilva-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:49:26 by jsilva-m          #+#    #+#             */
-/*   Updated: 2024/01/08 16:29:02 by jsilva-m         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:58:22 by jsilva-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,37 @@ int	ft_formats(char specifier, va_list	ap)
 	return (count);
 }
 
+int	ft_printchar_error_check(char c)
+{
+	int	result;
+
+	result = ft_printchar(c);
+	if (result == -1)
+		return (-1);
+	return (result);
+}
+
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count;
+	int		result;
 
 	count = 0;
 	va_start(ap, format);
 	while (*format != '\0')
 	{
 		if (*format == '%')
-			count += ft_formats(*(++format), ap);
+		{
+			result = ft_formats(*(++format), ap);
+		}
 		else
-			count += ft_printchar(*format);
+		{
+			result = ft_printchar_error_check(*format);
+		}
+		if (result == -1)
+			return (-1);
+		count += result;
 		++format;
 	}
 	va_end(ap);

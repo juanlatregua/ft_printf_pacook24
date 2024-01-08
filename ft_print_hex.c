@@ -6,7 +6,7 @@
 /*   By: jsilva-m <jsilva-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:54:43 by jsilva-m          #+#    #+#             */
-/*   Updated: 2024/01/08 16:08:49 by jsilva-m         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:16:12 by jsilva-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,26 @@
 int	ft_print_hex(unsigned long p, char *hex)
 {
 	int	len;
+	int	result;
 
 	len = 0;
-	if (p == 0)
-		return (ft_printchar('0'));
 	if (p > 15)
 	{
-		len += ft_print_hex(p / 16, hex);
-		len += ft_printchar(hex[p % 16]);
+		result = ft_print_hex(p / 16, hex);
+		if (result == -1)
+			return (-1);
+		len += result;
+		result = ft_printchar(hex[p % 16]);
+		if (result == -1)
+			return (-1);
+		len += result;
 	}
 	else
-		len += ft_printchar(hex[p]);
+	{
+		result = ft_printchar(hex[p]);
+		if (result == -1)
+			return (-1);
+		len += result;
+	}
 	return (len);
 }

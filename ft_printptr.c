@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printstr.c                                      :+:      :+:    :+:   */
+/*   ft_printptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsilva-m <jsilva-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 19:22:07 by jsilva-m          #+#    #+#             */
-/*   Updated: 2024/01/08 18:10:36 by jsilva-m         ###   ########.fr       */
+/*   Created: 2024/01/08 18:29:57 by jsilva-m          #+#    #+#             */
+/*   Updated: 2024/01/08 19:21:53 by jsilva-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printstr(char	*str)
+int	ft_printptr(void	*ptr)
 {
-	int	len;
+	int	count;
 	int	result;
 
-	len = 0;
-	if (!str)
-		str = "(null)";
-	else if (str[0] == '\0')
-		return (0);
-	while (str[len] != '\0')
+	count = 0;
+	if (ptr == NULL)
 	{
-		result = ft_printchar(str[len]);
+		result = ft_printstr("0x0");
 		if (result == -1)
 			return (-1);
-		len++;
+		count += result;
 	}
-	return (len);
+	else
+	{
+		result = ft_printstr("0x");
+		if (result == -1)
+			return (-1);
+		count += result;
+		result = ft_print_hex((unsigned long)ptr, "0123456789abcdef");
+		if (result == -1)
+			return (-1);
+		count += result;
+	}
+	return (count);
 }

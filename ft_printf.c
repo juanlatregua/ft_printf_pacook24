@@ -6,7 +6,7 @@
 /*   By: jsilva-m <jsilva-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:49:26 by jsilva-m          #+#    #+#             */
-/*   Updated: 2024/01/08 17:58:22 by jsilva-m         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:18:40 by jsilva-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	ft_formats(char specifier, va_list	ap)
 	else if (specifier == 's')
 		count += ft_printstr(va_arg(ap, char *));
 	else if (specifier == 'p')
-	{
-		count += ft_printstr("0x");
-		count += ft_print_hex(va_arg(ap, unsigned long), "0123456789abcdef");
-	}
+		count += ft_printptr(va_arg(ap, void *));
 	else if (specifier == 'd' || specifier == 'i')
 		count += ft_printnbr((long)va_arg(ap, int));
 	else if (specifier == 'u')
